@@ -32,44 +32,46 @@ let data = [
     }
   ];
 
-
-function renderTickets(data){
-  let ticketData ="";
-  const ticketContainer = document.querySelector('.ticketCard-area');
-  data.forEach(ticket => {
-    ticketData += `
-    <li class="ticketCard">
-      <div class="ticketCard-img">
-        <a href="#">
-          <img src="${ticket.imgUrl}" alt="">
-        </a>
-        <div class="ticketCard-region">${ticket.area}</div>
-          <div class="ticketCard-rank">${ticket.rate}</div>
-      </div>
-      <div class="ticketCard-content">
-        <div>
-          <h3>
-            <a href="#" class="ticketCard-name">${ticket.name}</a>
-          </h3>
-          <p class="ticketCard-description">
-            ${ticket.description}
-          </p>
+  function renderTickets(){
+    let ticketData ="";
+    const ticketContainer = document.querySelector('.ticketCard-area');
+    data.forEach(ticket => {
+      ticketData += `
+      <li class="ticketCard">
+        <div class="ticketCard-img">
+          <a href="#">
+            <img src="${ticket.imgUrl}" alt="">
+          </a>
+          <div class="ticketCard-region">${ticket.area}</div>
+            <div class="ticketCard-rank">${ticket.rate}</div>
         </div>
-        <div class="ticketCard-info">
-          <p class="ticketCard-num">
-            <span><i class="fas fa-exclamation-circle"></i>
-            </span>
-            剩下最後 <span id="ticketCard-num"> ${ticket.group} </span> 組
-          </p>
-          <p class="ticketCard-price">
-            TWD <span id="ticketCard-price">$${ticket.price}</span>
-          </p>
+        <div class="ticketCard-content">
+          <div>
+            <h3>
+              <a href="#" class="ticketCard-name">${ticket.name}</a>
+            </h3>
+            <p class="ticketCard-description">
+              ${ticket.description}
+            </p>
+          </div>
+          <div class="ticketCard-info">
+            <p class="ticketCard-num">
+              <span><i class="fas fa-exclamation-circle"></i>
+              </span>
+              剩下最後 <span id="ticketCard-num"> ${ticket.group} </span> 組
+            </p>
+            <p class="ticketCard-price">
+              TWD <span id="ticketCard-price">$${ticket.price}</span>
+            </p>
+          </div>
         </div>
-      </div>
-    </li>
-    `
-  });
-  ticketContainer.innerHTML = ticketData;
-};
+      </li>
+      `
+    });
+    ticketContainer.innerHTML = ticketData;
+  };
+function init(){
+  renderTickets();
+}
 
-renderTickets(data);
+init();
