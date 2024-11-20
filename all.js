@@ -38,7 +38,7 @@ function renderTicketsData() {
     ticketsData.push(item);
   })
 };
-renderTicketsData();
+// renderTicketsData();
 // console.log(ticketData);
 
 // 抓取渲染套票資料的 html 結點(ul)
@@ -80,57 +80,28 @@ function renderTickets() {
   ticketContainer.innerHTML = ticketsItem;
 };
 
+// 新增計算資料渲染筆數的功能
+const resultTextNum = document.getElementById('searchResult-text');
+// 檢查是否有抓取到搜尋資料筆數的 html tag
+// console.log(resultTextNum.textContent);
+function searchResultNum(){
+  let textNum = 0;
+  textNum = ticketsData.length;
+  // 檢查渲染資料的陣列資料筆數
+  // console.log(textNum)
+  // return
+  resultTextNum.textContent = `本次搜尋共 ${textNum} 筆資料`;
+}
+// searchResultNum();
 
 
+function init(){
+  renderTicketsData();
+  renderTickets();
+  searchResultNum();
+}
 
-// 抓取新增旅遊套票輸入表單的 套票名稱 的 label 元素
-const ticketName = document.getElementById('ticketName');
-// 抓取新增旅遊套票輸入表單的 套票名稱的 message 的 p 元素
-const alertMessage = document.getElementById('ticketName-message');
-
-// const ticketContainer = document.querySelector('.ticketCard-area');
-
-// 動態新增 data 資料至頁面
-// function renderTickets() {
-//   let ticketData = "";
-
-//   data.forEach(ticket => {
-//     ticketData += `
-//       <li class="ticketCard">
-//         <div class="ticketCard-img">
-//           <a href="#">
-//             <img src="${ticket.imgUrl}" alt="">
-//           </a>
-//           <div class="ticketCard-region">${ticket.area}</div>
-//             <div class="ticketCard-rank">${ticket.rate}</div>
-//         </div>
-//         <div class="ticketCard-content">
-//           <div>
-//             <h3>
-//               <a href="#" class="ticketCard-name">${ticket.name}</a>
-//             </h3>
-//             <p class="ticketCard-description">
-//               ${ticket.description}
-//             </p>
-//           </div>
-//           <div class="ticketCard-info">
-//             <p class="ticketCard-num">
-//               <span><i class="fas fa-exclamation-circle"></i>
-//               </span>
-//               剩下最後 <span id="ticketCard-num"> ${ticket.group} </span> 組
-//             </p>
-//             <p class="ticketCard-price">
-//               TWD <span id="ticketCard-price">$${ticket.price}</span>
-//             </p>
-//           </div>
-//         </div>
-//       </li>
-//       `
-//   });
-//   ticketContainer.innerHTML = ticketData;
-// };
-
-
+init();
 
 // 新增套票篩選功能
 
@@ -173,9 +144,8 @@ regionFilter.addEventListener('change', function (e) {
     // ticketContainer.innerHTML = regionData;
   })
 });
-function init() {
-  renderTickets();
-  // ticketNameTest();
-}
+// function init() {
+//   renderTickets();
+// }
 
-init();
+// init();
