@@ -31,47 +31,151 @@ let data = [
     "rate": 7
   }
 ];
+// 宣告一個變數，名稱 ticketsData，值為一個空陣列，用於儲存透過 forEach() data的值及頁面上新增的套票值(資料)，並重新渲染頁面所使用
+let ticketsData = [];
+function renderTicketsData() {
+  data.forEach(item => {
+    ticketsData.push(item);
+  })
+};
+renderTicketsData();
+// console.log(ticketData);
+
+// 抓取渲染套票資料的 html 結點(ul)
+const ticketContainer = document.querySelector('.ticketCard-area');
 
 function renderTickets() {
-  let ticketData = "";
-  const ticketContainer = document.querySelector('.ticketCard-area');
-  data.forEach(ticket => {
-    ticketData += `
+  let ticketsItem = "";
+  ticketsData.forEach(ticketItem => {
+    ticketsItem += `
+    <li class="ticketCard">
+      <div class="ticketCard-img">
+        <a href="#">
+          <img src="${ticketItem.imgUrl}" alt="">
+        </a>
+        <div class="ticketCard-region">${ticketItem.area}</div>
+        <div class="ticketCard-rank">${ticketItem.rate}</div>
+      </div>
+      <div class="ticketCard-content">
+        <div>
+          <h3>
+            <a href="#" class="ticketCard-name">${ticketItem.name}</a>
+          </h3>
+          <p class="ticketCard-description">
+          ${ticketItem.description}
+          </p>
+        </div>
+        <div class="ticketCard-info">
+          <p class="ticketCard-num">
+            <span><i class="fas fa-exclamation-circle"></i>
+            </span> 剩下最後 <span id="ticketCard-num"> ${ticketItem.group} </span> 組
+          </p>
+          <p class="ticketCard-price">
+            TWD <span id="ticketCard-price">${ticketItem.price}</span>
+          </p>
+        </div>
+      </div>
+    </li>`;
+  });
+  ticketContainer.innerHTML = ticketsItem;
+};
+
+
+
+
+// 抓取新增旅遊套票輸入表單的 套票名稱 的 label 元素
+const ticketName = document.getElementById('ticketName');
+// 抓取新增旅遊套票輸入表單的 套票名稱的 message 的 p 元素
+const alertMessage = document.getElementById('ticketName-message');
+
+// const ticketContainer = document.querySelector('.ticketCard-area');
+
+// 動態新增 data 資料至頁面
+// function renderTickets() {
+//   let ticketData = "";
+
+//   data.forEach(ticket => {
+//     ticketData += `
+//       <li class="ticketCard">
+//         <div class="ticketCard-img">
+//           <a href="#">
+//             <img src="${ticket.imgUrl}" alt="">
+//           </a>
+//           <div class="ticketCard-region">${ticket.area}</div>
+//             <div class="ticketCard-rank">${ticket.rate}</div>
+//         </div>
+//         <div class="ticketCard-content">
+//           <div>
+//             <h3>
+//               <a href="#" class="ticketCard-name">${ticket.name}</a>
+//             </h3>
+//             <p class="ticketCard-description">
+//               ${ticket.description}
+//             </p>
+//           </div>
+//           <div class="ticketCard-info">
+//             <p class="ticketCard-num">
+//               <span><i class="fas fa-exclamation-circle"></i>
+//               </span>
+//               剩下最後 <span id="ticketCard-num"> ${ticket.group} </span> 組
+//             </p>
+//             <p class="ticketCard-price">
+//               TWD <span id="ticketCard-price">$${ticket.price}</span>
+//             </p>
+//           </div>
+//         </div>
+//       </li>
+//       `
+//   });
+//   ticketContainer.innerHTML = ticketData;
+// };
+
+
+
+// 新增套票篩選功能
+
+const regionFilter = document.querySelector('.regionSearch');
+let regionData = "";
+regionFilter.addEventListener('change', function (e) {
+  data.forEach((item) => {
+    if (e.target.value === "台中") {
+      data += `
       <li class="ticketCard">
         <div class="ticketCard-img">
           <a href="#">
-            <img src="${ticket.imgUrl}" alt="">
+            <img src="${item.imgUrl}" alt="">
           </a>
-          <div class="ticketCard-region">${ticket.area}</div>
-            <div class="ticketCard-rank">${ticket.rate}</div>
+          <div class="ticketCard-region">${item.area}</div>
+            <div class="ticketCard-rank">${item.rate}</div>
         </div>
         <div class="ticketCard-content">
           <div>
             <h3>
-              <a href="#" class="ticketCard-name">${ticket.name}</a>
+              <a href="#" class="ticketCard-name">${item.name}</a>
             </h3>
             <p class="ticketCard-description">
-              ${ticket.description}
+              ${item.description}
             </p>
           </div>
           <div class="ticketCard-info">
             <p class="ticketCard-num">
               <span><i class="fas fa-exclamation-circle"></i>
               </span>
-              剩下最後 <span id="ticketCard-num"> ${ticket.group} </span> 組
+              剩下最後 <span id="ticketCard-num"> ${item.group} </span> 組
             </p>
             <p class="ticketCard-price">
-              TWD <span id="ticketCard-price">$${ticket.price}</span>
+              TWD <span id="ticketCard-price">$${item.price}</span>
             </p>
           </div>
         </div>
-      </li>
-      `
-  });
-  ticketContainer.innerHTML = ticketData;
-};
+      </li>`
+    };
+    // ticketContainer.innerHTML = regionData;
+  })
+});
 function init() {
   renderTickets();
+  // ticketNameTest();
 }
 
 init();
