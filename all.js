@@ -78,6 +78,8 @@ function renderTickets() {
     </li>`;
   });
   ticketContainer.innerHTML = ticketsItem;
+  // 呼叫計算資料渲染筆數的函式
+  searchResultNum();
 };
 
 // 新增計算資料渲染筆數的功能
@@ -98,54 +100,6 @@ function searchResultNum(){
 function init(){
   renderTicketsData();
   renderTickets();
-  searchResultNum();
 }
 
 init();
-
-// 新增套票篩選功能
-
-const regionFilter = document.querySelector('.regionSearch');
-let regionData = "";
-regionFilter.addEventListener('change', function (e) {
-  data.forEach((item) => {
-    if (e.target.value === "台中") {
-      data += `
-      <li class="ticketCard">
-        <div class="ticketCard-img">
-          <a href="#">
-            <img src="${item.imgUrl}" alt="">
-          </a>
-          <div class="ticketCard-region">${item.area}</div>
-            <div class="ticketCard-rank">${item.rate}</div>
-        </div>
-        <div class="ticketCard-content">
-          <div>
-            <h3>
-              <a href="#" class="ticketCard-name">${item.name}</a>
-            </h3>
-            <p class="ticketCard-description">
-              ${item.description}
-            </p>
-          </div>
-          <div class="ticketCard-info">
-            <p class="ticketCard-num">
-              <span><i class="fas fa-exclamation-circle"></i>
-              </span>
-              剩下最後 <span id="ticketCard-num"> ${item.group} </span> 組
-            </p>
-            <p class="ticketCard-price">
-              TWD <span id="ticketCard-price">$${item.price}</span>
-            </p>
-          </div>
-        </div>
-      </li>`
-    };
-    // ticketContainer.innerHTML = regionData;
-  })
-});
-// function init() {
-//   renderTickets();
-// }
-
-// init();
