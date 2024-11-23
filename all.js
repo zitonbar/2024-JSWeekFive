@@ -44,6 +44,7 @@ const ticketContainer = document.querySelector('.ticketCard-area');
 
 function renderTickets() {
   let ticketsItem = "";
+  // 宣告一個變數
   const dataToRender = filteredTicketsData.length === 0 ? ticketsData : filteredTicketsData;
   dataToRender.forEach(ticketItem => {
     ticketsItem += `
@@ -85,13 +86,8 @@ function renderTickets() {
 const resultTextNum = document.getElementById('searchResult-text');
 // 檢查是否有抓取到搜尋資料筆數的 html tag
 function searchResultNum(){
-  let textNum = 0;
   // 新增頁面渲染資料的判斷式，如 filteredTicketsData 陣列長度為 0 ，則顯示 ticketsData 的陣列長度，如果不是為 0 ， 則顯示 filterTicketsData 的長度
-  if(filteredTicketsData.length === 0) {
-    textNum = ticketsData.length;
-  }else {
-    textNum = filteredTicketsData.length;
-  }
+  let textNum = filteredTicketsData.length === 0 ? ticketsData.length : filteredTicketsData.length;
   resultTextNum.textContent = `本次搜尋共 ${textNum} 筆資料`;
 }
 
@@ -113,7 +109,7 @@ dropdownFilterBtn.addEventListener('change', (event)=>{
 
 
 function init(){
-  getTicketsData(ticketsData);
+  getTicketsData();
   renderTickets();
 }
 
