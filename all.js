@@ -33,20 +33,19 @@ let data = [
 ];
 // 宣告一個變數，名稱 ticketsData，值為一個空陣列，用於儲存透過 forEach() data的值及頁面上新增的套票值(資料)，並重新渲染頁面所使用
 let ticketsData = [];
-function renderTicketsData() {
+function getTicketsData() {
   data.forEach(item => {
     ticketsData.push(item);
   })
 };
-// renderTicketsData();
-// console.log(ticketData);
 
 // 抓取渲染套票資料的 html 結點(ul)
 const ticketContainer = document.querySelector('.ticketCard-area');
 
 function renderTickets() {
   let ticketsItem = "";
-  ticketsData.forEach(ticketItem => {
+  const dataToRender = filteredTicketsData.length === 0 ? ticketsData : filteredTicketsData;
+  dataToRender.forEach(ticketItem => {
     ticketsItem += `
     <li class="ticketCard">
       <div class="ticketCard-img">
@@ -85,20 +84,36 @@ function renderTickets() {
 // 新增計算資料渲染筆數的功能
 const resultTextNum = document.getElementById('searchResult-text');
 // 檢查是否有抓取到搜尋資料筆數的 html tag
-// console.log(resultTextNum.textContent);
 function searchResultNum(){
   let textNum = 0;
-  textNum = ticketsData.length;
-  // 檢查渲染資料的陣列資料筆數
-  // console.log(textNum)
-  // return
+  // 新增頁面渲染資料的判斷式，如 filteredTicketsData 陣列長度為 0 ，則顯示 ticketsData 的陣列長度，如果不是為 0 ， 則顯示 filterTicketsData 的長度
+  if(filteredTicketsData.length === 0) {
+    textNum = ticketsData.length;
+  }else {
+    textNum = filteredTicketsData.length;
+  }
   resultTextNum.textContent = `本次搜尋共 ${textNum} 筆資料`;
 }
-// searchResultNum();
+
+
+// 新增下拉選單篩選的監聽事件
+let filteredTicketsData = [];
+const dropdownFilterBtn = document.querySelector('.regionSearch');
+dropdownFilterBtn.addEventListener('change', (event)=>{
+  const selectedValue = event.target.value;
+  filteredTicketsData = [];
+  if(selectedValue === "全部地區"){
+    filteredTicketsData = ticketsData;
+  }else{
+    filteredTicketsData = ticketsData.filter(item => item.area === selectedValue);
+  }
+  renderTickets();
+  searchResultNum();
+});
 
 
 function init(){
-  renderTicketsData();
+  getTicketsData(ticketsData);
   renderTickets();
 }
 
