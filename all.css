@@ -159,6 +159,7 @@
   .addTicket-input textarea {
     padding-top: 8px;
     min-height: 111px;
+    resize: none;
   }
   
   .alert-message {

@@ -107,6 +107,75 @@ dropdownFilterBtn.addEventListener('change', (event)=>{
   searchResultNum();
 });
 
+// 新增頁面輸入新增套票資料功能
+
+// 新增 "必填" 的 html 結構，設定為一個變數，以便後續以變數形式在多處使用
+const errorMessage = `<i class="fas fa-exclamation-circle"></i><span>必填!</span>`;
+// 新增 "新增套票" 的監聽事件
+document.querySelector('.addTicket-btn').addEventListener('click', function(){
+  const form = document.querySelector('.addTicket-form');
+  const ticketName = document.getElementById('ticketName').value.trim();
+  const ticketImgUrl = document.getElementById('ticketImgUrl').value.trim();
+  const ticketRegion = document.getElementById('ticketRegion').value;
+  const ticketPrice = document.getElementById('ticketPrice').value.trim();
+  const ticketNum = document.getElementById('ticketNum').value.trim();
+  const ticketRate = document.getElementById('ticketRate').value.trim();
+  const ticketDescription = document.getElementById('ticketDescription').value.trim();
+  let isValid = true;
+  if(!ticketName){
+    document.getElementById('ticketName-message').innerHTML = errorMessage;
+    isValid = false;
+  }else{
+    document.getElementById('ticketName-message').innerHTML = '';
+  };
+  if(!ticketImgUrl){
+    document.getElementById('ticketImgUrl-message').innerHTML = errorMessage;
+    isValid = false;
+  }else{
+    document.getElementById('ticketImgUrl-message').innerHTML = '';
+  };
+  if(!ticketRegion){
+    document.getElementById('ticketRegion-message').innerHTML = errorMessage;
+    isValid = false;
+  }else{
+    document.getElementById('ticketRegion-message').innerHTML = '';
+  };
+  if(!ticketPrice){
+    document.getElementById('ticketPrice-message').innerHTML = errorMessage;
+    isValid = false;
+  }else{
+    document.getElementById('ticketPrice-message').innerHTML =  '';
+  };
+  if(!ticketNum){
+    document.getElementById('ticketNum-message').innerHTML = errorMessage;
+    isValid = false;
+  }else{
+    document.getElementById('ticketNum-message').innerHTML = '';
+  };
+  if(!ticketRate){
+    document.getElementById('ticketRate-message').innerHTML = errorMessage;
+    isValid = false;
+  }else{
+    document.getElementById('ticketRate-message').innerHTML = '';
+  };
+  if(!ticketDescription){
+    document.getElementById('ticketDescription-message').innerHTML = errorMessage;
+    isValid = false;
+  }else{
+    document.getElementById('ticketDescription-message').innerHTML = '';
+  }
+  return isValid;
+});
+
+
+
+
+
+// function addTicketContent () {
+//   if(ticketName || ticketImgUrl || ticketRegion || ticketPrice || ticketNum || ticketRate || ticketDescription)
+
+// };
+
 
 function init(){
   getTicketsData();
