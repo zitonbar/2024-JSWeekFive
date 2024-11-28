@@ -38,7 +38,6 @@ function getTicketsData() {
     ticketsData.push(item);
   })
 };
-console.log(ticketsData)
 
 // 抓取渲染套票資料的 html 結點(ul)
 const ticketContainer = document.querySelector('.ticketCard-area');
@@ -160,4 +159,3 @@ function init(){
 }
 
 init();
-console.log(ticketsData);
