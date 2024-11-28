@@ -38,6 +38,7 @@ function getTicketsData() {
     ticketsData.push(item);
   })
 };
+console.log(ticketsData)
 
 // 抓取渲染套票資料的 html 結點(ul)
 const ticketContainer = document.querySelector('.ticketCard-area');
@@ -113,69 +114,45 @@ dropdownFilterBtn.addEventListener('change', (event)=>{
 const errorMessage = `<i class="fas fa-exclamation-circle"></i><span>必填!</span>`;
 // 新增 "新增套票" 的監聽事件
 document.querySelector('.addTicket-btn').addEventListener('click', function(){
+  // console.log('按鈕被點擊');
   const form = document.querySelector('.addTicket-form');
-  const ticketName = document.getElementById('ticketName').value.trim();
-  const ticketImgUrl = document.getElementById('ticketImgUrl').value.trim();
-  const ticketRegion = document.getElementById('ticketRegion').value;
-  const ticketPrice = document.getElementById('ticketPrice').value.trim();
-  const ticketNum = document.getElementById('ticketNum').value.trim();
-  const ticketRate = document.getElementById('ticketRate').value.trim();
-  const ticketDescription = document.getElementById('ticketDescription').value.trim();
+  const fields = [
+    { inputId: 'ticketName', messageId: 'ticketName-message'},
+    { inputId: 'ticketImgUrl', messageId: 'ticketImgUrl-message'},
+    { inputId: 'ticketRegion', messageId: 'ticketRegion-message'},
+    { inputId: 'ticketPrice', messageId: 'ticketPrice-message'},
+    { inputId: 'ticketNum', messageId: 'ticketNum-message'},
+    { inputId: 'ticketRate', messageId: 'ticketRate-message'},
+    { inputId: 'ticketDescription', messageId: 'ticketDescription-message'}
+  ];
   let isValid = true;
-  if(!ticketName){
-    document.getElementById('ticketName-message').innerHTML = errorMessage;
-    isValid = false;
-  }else{
-    document.getElementById('ticketName-message').innerHTML = '';
-  };
-  if(!ticketImgUrl){
-    document.getElementById('ticketImgUrl-message').innerHTML = errorMessage;
-    isValid = false;
-  }else{
-    document.getElementById('ticketImgUrl-message').innerHTML = '';
-  };
-  if(!ticketRegion){
-    document.getElementById('ticketRegion-message').innerHTML = errorMessage;
-    isValid = false;
-  }else{
-    document.getElementById('ticketRegion-message').innerHTML = '';
-  };
-  if(!ticketPrice){
-    document.getElementById('ticketPrice-message').innerHTML = errorMessage;
-    isValid = false;
-  }else{
-    document.getElementById('ticketPrice-message').innerHTML =  '';
-  };
-  if(!ticketNum){
-    document.getElementById('ticketNum-message').innerHTML = errorMessage;
-    isValid = false;
-  }else{
-    document.getElementById('ticketNum-message').innerHTML = '';
-  };
-  if(!ticketRate){
-    document.getElementById('ticketRate-message').innerHTML = errorMessage;
-    isValid = false;
-  }else{
-    document.getElementById('ticketRate-message').innerHTML = '';
-  };
-  if(!ticketDescription){
-    document.getElementById('ticketDescription-message').innerHTML = errorMessage;
-    isValid = false;
-  }else{
-    document.getElementById('ticketDescription-message').innerHTML = '';
+
+  fields.forEach(field =>{
+    const inputElement = document.getElementById(field.inputId);
+    const messageElement = document.getElementById(field.messageId);
+    if(!inputElement.value.trim()){
+      messageElement.innerHTML = errorMessage;
+      isValid = false;
+    }else{
+      messageElement.innerHTML = '';
+    }
+  });
+  if(isValid){
+    const newTicket = {
+      id: data.length,
+      name: document.getElementById('ticketName').value.trim(),
+      imgUrl: document.getElementById('ticketImgUrl').value.trim(),
+      area: document.getElementById('ticketRegion').value,
+      group: Number(document.getElementById('ticketNum').value.trim()),
+      price: Number(document.getElementById('ticketPrice').value.trim()),
+      rate: Number(document.getElementById('ticketRate').value.trim()),
+      description: document.getElementById('ticketDescription').value.trim()
+    };
+    ticketsData.push(newTicket);
+    form.reset();
+    renderTickets();
   }
-  return isValid;
 });
-
-
-
-
-
-// function addTicketContent () {
-//   if(ticketName || ticketImgUrl || ticketRegion || ticketPrice || ticketNum || ticketRate || ticketDescription)
-
-// };
-
 
 function init(){
   getTicketsData();
@@ -183,3 +160,4 @@ function init(){
 }
 
 init();
+console.log(ticketsData);
